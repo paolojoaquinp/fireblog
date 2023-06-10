@@ -1,6 +1,17 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
+import Header from '@components/Header';
 
-export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+/* import { ThemeContextProvider } from '../context/ThemeContext'; */
+import { GlobalStyle } from "../styles/global";
+
+export default function MyApp({ Component, pageProps }: AppProps) {
+  return (
+    <>
+      {/* <ThemeContextProvider> */}
+      <GlobalStyle />
+      <Header />
+      <Component {...pageProps} />
+      {/* </ThemeContextProvider> */}
+    </>
+  );
 }
