@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import Document, { Html, Head, Main, NextScript, DocumentInitialProps, DocumentContext } from 'next/document';
 import { ServerStyleSheet } from "styled-components";
+import Script from "next/script";
 
 // NEXT.JS CUSTOM DOCUMENT
 // https://nextjs.org/docs/advanced-features/custom-document
@@ -31,6 +32,7 @@ export default class MyDocument extends Document {
     } finally {
       sheet.seal();
     }
+
   }
 
   render(): ReactElement {
@@ -38,6 +40,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* SOME HEAD ELEMENTS */}
+          <Script src="/first-input-delay.js" ></Script>
         </Head>
         <body>
           <Main />

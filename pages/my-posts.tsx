@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react'
 import Card from '@components/Card';
 import { BfMain } from '../styles/layout';
 import { FirestoreController } from 'services/firestoreService';
-import { DocumentData, QueryDocumentSnapshot } from 'firebase/firestore';
 import { Post } from 'models/Post';
-
-const Layout = () => {
+import { auth } from 'services/firebase';
+const MyPosts = () => {
   const firestore = new FirestoreController();
   const [posts,setPosts] = useState<Post[]>([]);
-
+  
   useEffect(() => {
     const obtenerPosts = async () => {
       try {
-        const postsData = await firestore.consultarTodosPost();
+        const postsData = await firestore.consultarPostPerUser(auth.currentUser?.email ?? '');
         setPosts(postsData);
       } catch (error) {
         console.error('Error al obtener los posts:', error);
@@ -28,8 +27,8 @@ const Layout = () => {
         Ultimas Publicaciones
       </p>
       <>
-      {posts.map((post,_) => (
-          <Card post={post} key={_} />
+      {posts.map((post) => (
+          <Card post={post} key={post.autor} />
         ))}
       </>
     </BfMain>
@@ -37,4 +36,4 @@ const Layout = () => {
   )
 }
 
-export default Layout;
+export default MyPosts;
